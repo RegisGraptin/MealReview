@@ -1,31 +1,25 @@
 
-import { abi } from '../abi/restaurant_abi.json';
+import restaurant_abi from '../abi/restaurant_abi.json';
 
 import React, { useState } from 'react';
 import { parseAbi } from 'viem';
 
-import { type BaseError, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
+import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 
 
 export const NewRestaurantCard = () => {
-    
-    const { data: hash, error, isPending, writeContract } = useWriteContract()
+
+    const { data: hash, writeContract } = useWriteContract()
 
     async function createNewRestaurant() {
-
-                
-        writeContract({
-            address: "0x325ddaD74e34690E3E477278296cb9FCcb863A3D",
-            abi: parseAbi(['function createRestaurant()']),
+        await writeContract({
+            address: "0xdB3B75E1e96a025cb86Ff105EA6711e5648671B5",
+            abi: parseAbi(['function createRestaurant(string,string)']),
             functionName: 'createRestaurant',
-          });
-         
-
+            args: [formData.name, formData.name]
+        });
+        setShowModal(false);
     };
-
-    const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
-      hash,
-    })
 
     const [formData, setFormData] = useState({
         name: '',
@@ -48,18 +42,17 @@ export const NewRestaurantCard = () => {
             <div>
 
                 <div className="max-w-sm rounded overflow-hidden shadow-lg">
-                    <img className="w-full" src="https://v1.tailwindcss.com/img/card-top.jpg" alt="Sunset in the mountains" />
+                    <img className="w-full" src="/images/place.jpg" alt="Sunset in the mountains" />
                     <div className="px-6 py-4">
-                        <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
 
                         <button
-                            className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                             type="button"
-                            onClick={() => 
-                                setShowModal(true) 
+                            onClick={() =>
+                                setShowModal(true)
                             }
                         >
-                            Open regular modal
+                            Create a new restaurant
                         </button>
                         {showModal ? (
                             <>
@@ -93,7 +86,7 @@ export const NewRestaurantCard = () => {
                                                         <label htmlFor="name" className="block mb-2 text-sm font-medium">
                                                             Restaurant name
                                                         </label>
-                                                        <input type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
+                                                        <input type="text" name="name" id="name" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                                             required
                                                             value={formData.name}
                                                             onChange={handleChange}
@@ -104,7 +97,7 @@ export const NewRestaurantCard = () => {
                                                         <label htmlFor="address" className="block mb-2 text-sm font-medium">
                                                             Restaurant address
                                                         </label>
-                                                        <input type="text" name="address" id="address" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
+                                                        <input type="text" name="address" id="address" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                                             required
                                                             value={formData.address}
                                                             onChange={handleChange}
@@ -128,7 +121,6 @@ export const NewRestaurantCard = () => {
                                                     className="bg-emerald-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                                                     type="button"
                                                     onClick={() => {
-                                                        setShowModal(false);
                                                         createNewRestaurant();
                                                     }}
                                                 >
@@ -151,8 +143,5 @@ export const NewRestaurantCard = () => {
         </>
 
     )
-}
-function usePrepareContractWrite(arg0: { address: string; abi: { name: string; type: string; stateMutability: string; inputs: { internalType: string; name: string; type: string; }[]; outputs: never[]; }[]; functionName: string; args: number[]; enabled: boolean; }): { config: any; } {
-    throw new Error('Function not implemented.');
 }
 
