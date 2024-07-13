@@ -1,40 +1,44 @@
 
 // import { writeContract } from '@wagmi/core'
 
-import RestaurantModal from '../../../contract/ignition/deployments/chain-31337/artifacts/RestaurantModule#Restaurant.json'
+import { abi } from '../abi/restaurant_abi.json';
 
 import React, { useState } from 'react';
-import { useAccount, useReadContract, useWriteContract } from 'wagmi';
+
+import { useWriteContract } from 'wagmi'
 
 
 export const NewRestaurantCard = () => {
     
-    const { data: hash, writeContract } = useWriteContract();
-    
-    const { data: balance } = useReadContract({
-        abi: RestaurantModal.abi,
-        address: '0x325ddaD74e34690E3E477278296cb9FCcb863A3D',
-        functionName: 'balanceOf',
-        args: [],
-      })
+    const { data: hash, writeContract } = useWriteContract()
 
+    async function createNewRestaurant() {
 
-    const createNewRestaurant = () => {
-        console.log(formData);
-
-        
-        console.log(balance)
-        
-
-        let d = writeContract({ 
-            abi: RestaurantModal.abi,
+                
+        writeContract({
             address: '0x325ddaD74e34690E3E477278296cb9FCcb863A3D',
+            abi: {
+                "inputs": [
+                  {
+                    "internalType": "string",
+                    "name": "tokenURI",
+                    "type": "string"
+                  }
+                ],
+                "name": "createRestaurant",
+                "outputs": [
+                  {
+                    "internalType": "uint256",
+                    "name": "",
+                    "type": "uint256"
+                  }
+                ],
+                "stateMutability": "nonpayable",
+                "type": "function"
+              },
             functionName: 'createRestaurant',
             args: [],
-         });
-
-         console.log(hash);
-         console.log(address);
+          });
          
 
     };
@@ -54,7 +58,6 @@ export const NewRestaurantCard = () => {
 
     const [showModal, setShowModal] = React.useState(false);
 
-    const { address } = useAccount();
 
     return (
         <>
@@ -68,7 +71,9 @@ export const NewRestaurantCard = () => {
                         <button
                             className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                             type="button"
-                            onClick={() => createNewRestaurant()} // setShowModal(true)
+                            onClick={() => 
+                                setShowModal(true) 
+                            }
                         >
                             Open regular modal
                         </button>
