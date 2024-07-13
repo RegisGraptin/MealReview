@@ -83,3 +83,9 @@ deploying "RestaurantRating" (tx: 0xe2347c5f7dd7baba1ea1cf17eea0f69ce905bd95161c
 RestaurantRating contract:  0xbeb4eF1fcEa618C6ca38e3828B00f8D481EC2CC2
 
 
+
+pnpm hardhat deploy --network testnet
+No need to generate any newer typings.
+deploying "RestaurantRating" (tx: 0xf086960bad63b3d6b55e1b04ea17340b959d349a17ac2477399f9b70b17be9d1)...: deployed at 0x325ddaD74e34690E3E477278296cb9FCcb863A3D with 43612217 gas
+Deployed contract at: 0x325ddaD74e34690E3E477278296cb9FCcb863A3D
+
