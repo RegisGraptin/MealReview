@@ -1,6 +1,8 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 
+require("@nomicfoundation/hardhat-verify");
+
 const { vars } = require("hardhat/config");
 
 const PRIVATE_KEY = vars.get("PRIVATE_KEY");
@@ -17,8 +19,29 @@ const config: HardhatUserConfig = {
     scroll: {
       url: "https://sepolia-rpc.scroll.io/",
       accounts: [PRIVATE_KEY],
-    }
-  }
+    },
+    base: {
+      url: 'https://sepolia.base.org',
+      accounts: [PRIVATE_KEY],
+      gasPrice: 1000000000,
+    },
+  },
+  etherscan: {
+    apiKey: {
+      // Is not required by blockscout. Can be any non-empty string
+      base: "base"
+    },
+    customChains: [
+      {
+        network: "base",
+        chainId: 84532,
+        urls: {
+          apiURL: "https://base-sepolia.blockscout.com//api",
+          browserURL: "https://base-sepolia.blockscout.com/",
+        }
+      }
+    ]
+  },
 };
 
 export default config;
