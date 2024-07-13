@@ -9,6 +9,11 @@ import { IEntropyConsumer } from "@pythnetwork/entropy-sdk-solidity/IEntropyCons
 import { IEntropy } from "@pythnetwork/entropy-sdk-solidity/IEntropy.sol";
 
 
+struct RestaurantInfo {
+    string name;
+    string place;
+}
+
 struct Review {
     uint256 time;
     uint256 rating;
@@ -33,6 +38,10 @@ contract Restaurant is ERC721, IEntropyConsumer {
     uint256 public lastWinnerTimestamp;
     address public lastWinnerAddress;
 
+    uint256 public n_restaurants;
+
+    mapping(uint256 => RestaurantInfo) restaurant_details;
+
  
     // Restaurant ID => User address => Review ID
     mapping(uint256 => mapping(address => uint256)) restaurant_user_review;
@@ -52,12 +61,22 @@ contract Restaurant is ERC721, IEntropyConsumer {
         entropyProvider = _provider;
     }
 
-    function createRestaurant()
+    function createRestaurant(
+        string memory name, 
+        string memory place
+    )
         public
         returns (uint256)
     {
         uint256 tokenId = _nextTokenId++;
         
+        restaurant_details[n_restaurants] = RestaurantInfo({
+            name: name,
+            place: place
+        });
+
+        n_restaurants++;
+
         _mint(msg.sender, tokenId);
         // _setTokenURI(tokenId, tokenURI);
 
