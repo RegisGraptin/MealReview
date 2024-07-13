@@ -5,6 +5,7 @@ import type { AppProps } from 'next/app';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WagmiProvider } from 'wagmi';
 import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import { config } from '../wagmi';
 
@@ -12,13 +13,19 @@ const client = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <WagmiProvider config={config}>
+    <GoogleOAuthProvider clientId="1046892215060-qjd2lc3prshlu4df38hn6oge82na4a97.apps.googleusercontent.com">
+<WagmiProvider config={config}>
       <QueryClientProvider client={client}>
+        
         <RainbowKitProvider>
+
           <Component {...pageProps} />
+
         </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
+    </GoogleOAuthProvider>
+
   );
 }
 
