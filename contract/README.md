@@ -23,7 +23,7 @@ npx hardhat ignition deploy ignition/modules/Restaurant.ts --network base
 npx hardhat verify --network base 0x325ddaD74e34690E3E477278296cb9FCcb863A3D "0x41c9e39574F40Ad34c79f1C99B66A45eFB830d4c" "0x6CC14824Ea2918f5De5C2f75A9Da968ad4BD6344"
 
 > Verified address
-https://base-sepolia.blockscout.com/address/0x325ddaD74e34690E3E477278296cb9FCcb863A3D#code
+https://base-sepolia.blockscout.com/address/0xdB3B75E1e96a025cb86Ff105EA6711e5648671B5#code
 
 
 
@@ -35,3 +35,4 @@ https://base-sepolia.blockscout.com/address/0x325ddaD74e34690E3E477278296cb9FCcb
 
 0xdB3B75E1e96a025cb86Ff105EA6711e5648671B5
 
+npx hardhat verify --network base 0xdB3B75E1e96a025cb86Ff105EA6711e5648671B5 "0x41c9e39574F40Ad34c79f1C99B66A45eFB830d4c" "0x6CC14824Ea2918f5De5C2f75A9Da968ad4BD6344"
