@@ -1,13 +1,42 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit';
 
-import Link from "next/link"
+// import { writeContract } from '@wagmi/core'
+
+import RestaurantModal from '../../../contract/ignition/deployments/chain-31337/artifacts/RestaurantModule#Restaurant.json'
+
 import React, { useState } from 'react';
+import { useAccount, useReadContract, useWriteContract } from 'wagmi';
+
 
 export const NewRestaurantCard = () => {
+    
+    const { data: hash, writeContract } = useWriteContract();
+    
+    const { data: balance } = useReadContract({
+        abi: RestaurantModal.abi,
+        address: '0x325ddaD74e34690E3E477278296cb9FCcb863A3D',
+        functionName: 'balanceOf',
+        args: [],
+      })
 
 
     const createNewRestaurant = () => {
         console.log(formData);
+
+        
+        console.log(balance)
+        
+
+        let d = writeContract({ 
+            abi: RestaurantModal.abi,
+            address: '0x325ddaD74e34690E3E477278296cb9FCcb863A3D',
+            functionName: 'createRestaurant',
+            args: [],
+         });
+
+         console.log(hash);
+         console.log(address);
+         
+
     };
 
     const [formData, setFormData] = useState({
@@ -25,6 +54,8 @@ export const NewRestaurantCard = () => {
 
     const [showModal, setShowModal] = React.useState(false);
 
+    const { address } = useAccount();
+
     return (
         <>
             <div>
@@ -37,7 +68,7 @@ export const NewRestaurantCard = () => {
                         <button
                             className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                             type="button"
-                            onClick={() => setShowModal(true)}
+                            onClick={() => createNewRestaurant()} // setShowModal(true)
                         >
                             Open regular modal
                         </button>
@@ -132,3 +163,7 @@ export const NewRestaurantCard = () => {
 
     )
 }
+function usePrepareContractWrite(arg0: { address: string; abi: { name: string; type: string; stateMutability: string; inputs: { internalType: string; name: string; type: string; }[]; outputs: never[]; }[]; functionName: string; args: number[]; enabled: boolean; }): { config: any; } {
+    throw new Error('Function not implemented.');
+}
+
