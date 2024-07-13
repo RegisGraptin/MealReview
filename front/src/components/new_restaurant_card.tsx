@@ -1,47 +1,31 @@
 
-// import { writeContract } from '@wagmi/core'
-
 import { abi } from '../abi/restaurant_abi.json';
 
 import React, { useState } from 'react';
+import { parseAbi } from 'viem';
 
-import { useWriteContract } from 'wagmi'
+import { type BaseError, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
 
 
 export const NewRestaurantCard = () => {
     
-    const { data: hash, writeContract } = useWriteContract()
+    const { data: hash, error, isPending, writeContract } = useWriteContract()
 
     async function createNewRestaurant() {
 
                 
         writeContract({
-            address: '0x325ddaD74e34690E3E477278296cb9FCcb863A3D',
-            abi: {
-                "inputs": [
-                  {
-                    "internalType": "string",
-                    "name": "tokenURI",
-                    "type": "string"
-                  }
-                ],
-                "name": "createRestaurant",
-                "outputs": [
-                  {
-                    "internalType": "uint256",
-                    "name": "",
-                    "type": "uint256"
-                  }
-                ],
-                "stateMutability": "nonpayable",
-                "type": "function"
-              },
+            address: "0x325ddaD74e34690E3E477278296cb9FCcb863A3D",
+            abi: parseAbi(['function createRestaurant()']),
             functionName: 'createRestaurant',
-            args: [],
           });
          
 
     };
+
+    const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
+      hash,
+    })
 
     const [formData, setFormData] = useState({
         name: '',
