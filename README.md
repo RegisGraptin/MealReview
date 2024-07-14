@@ -15,3 +15,7 @@ Another aspect we wanted to integrate was private voting. Indeed, we wanted to e
 
 Finally, to embrace a maximum of users, we wanted to facilitate user embording. For that we added the possibility to connect with social login system as Google. We are using Web3Auth, to allow users to create an account and have a wallet to do on chain operation without having to manage wallet system.
 
+## Smart contract deployed on Based
+
+- https://base-sepolia.blockscout.com/address/0xdB3B75E1e96a025cb86Ff105EA6711e5648671B5#code
+- Fhenix smart contract address: 0x325ddaD74e34690E3E477278296cb9FCcb863A3D
